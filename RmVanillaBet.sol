@@ -4,12 +4,16 @@ contract VanillaOption {
   OptionTerms public _optionTerms;
   
   //ValueDate yyyymmdd in the past [maturity=today]
-  function VanillaOption(int callOrPut, bytes32 valueDate) public payable {
-    _optionTerms =  new OptionTerms(callOrPut, valueDate);
+  function VanillaOption(int callOrPut) public payable {
+    _optionTerms =  new OptionTerms(callOrPut);
   }
   
   function getOptionTypeString() public constant returns (bytes32) {
       return _optionTerms.getOptionTypeString();
+  }
+  
+  function setOptionTypeString(int callOrPut) public {
+      _optionTerms =  new OptionTerms(callOrPut);
   }
 }
 
@@ -19,8 +23,7 @@ contract OptionTerms {
     OptionType public _callOrPut;
     bytes32 public _valueDate;
         
-    function OptionTerms(int callOrPut, bytes32 valueDate) public {
-        _valueDate= valueDate;
+    function OptionTerms(int callOrPut) public {
         
         if (callOrPut == 1) {
             _callOrPut= new OptionTypeCall();
@@ -39,6 +42,7 @@ contract OptionTerms {
     function getOptionTypeString() public constant returns (bytes32) {
         return _callOrPut.getOptionTypeString();
     }
+
 }
 
 //==============================================================
