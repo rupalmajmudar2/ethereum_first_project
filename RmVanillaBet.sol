@@ -1,11 +1,11 @@
 pragma solidity ^0.4.18;
 
-contract VanillaOption {
-  OptionTerms public _optionTerms;
+contract MyFirstOption {
+  OptionTerms private _optionTerms;
   
   //ValueDate yyyymmdd in the past [maturity=today]
-  function VanillaOption(int callOrPut) public payable {
-    _optionTerms =  new OptionTerms(callOrPut);
+  function MyFirstOption() public payable {
+    _optionTerms =  new OptionTerms(-1); //init to Unknown OptionType 
   }
   
   function getOptionTypeString() public constant returns (bytes32) {
@@ -24,7 +24,6 @@ contract OptionTerms {
     bytes32 public _valueDate;
         
     function OptionTerms(int callOrPut) public {
-        
         if (callOrPut == 1) {
             _callOrPut= new OptionTypeCall();
         }
